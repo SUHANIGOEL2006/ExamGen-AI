@@ -1,191 +1,297 @@
-import { BadgeCheck } from "lucide-react";
+import { BadgeCheck, Download } from "lucide-react";
 
 function Preview() {
   const features = [
     "Latest CBSE Pattern",
-    "AI Generated Questions",
+    "Competency Based Questions",
+    "AI Generated Papers",
     "Chapter-wise Papers",
-    "Custom Difficulty Levels",
     "Printable PDF",
     "Answer Key Included",
   ];
 
   return (
-    <section className="bg-gradient-to-b from-white to-purple-50 py-24">
+    <section className="relative overflow-hidden bg-gradient-to-br from-purple-700 via-indigo-700 to-purple-900 py-24">
+
+      {/* Background Blur */}
+
+      <div className="absolute -left-28 top-20 h-72 w-72 rounded-full bg-pink-500/30 blur-[120px]" />
+
+      <div className="absolute -right-24 bottom-10 h-80 w-80 rounded-full bg-cyan-400/20 blur-[120px]" />
+
       <div className="mx-auto max-w-7xl px-6">
 
         {/* Heading */}
 
         <div className="text-center">
 
-          <h2 className="text-4xl font-bold text-gray-900">
-            See What You'll Generate
+          <span className="rounded-full border border-white/20 bg-white/10 px-6 py-2 text-sm font-medium text-white backdrop-blur">
+
+            AI Powered Question Paper Generator
+
+          </span>
+
+          <h2 className="mt-8 text-5xl font-extrabold leading-tight text-white">
+
+            Generate Beautiful
+            <br />
+            CBSE Question Papers
+
           </h2>
 
-          <p className="mx-auto mt-5 max-w-2xl text-lg text-gray-600">
-            Preview a beautifully formatted AI-generated question paper
-            designed according to the latest CBSE board pattern.
+          <p className="mx-auto mt-6 max-w-3xl text-lg leading-8 text-purple-100">
+
+            Generate professional competency-based question papers
+            with beautiful formatting and one-click PDF export.
+
           </p>
 
         </div>
 
-        {/* Content */}
+        {/* Main Grid */}
 
-        <div className="mt-20 grid items-center gap-14 lg:grid-cols-2">
+        <div className="mt-24 grid items-center gap-20 lg:grid-cols-2">
 
-          {/* ========================= */}
-          {/* Left Side - Question Paper */}
-          {/* ========================= */}
+          {/* ================= LEFT ================= */}
 
-          <div className="mx-auto w-full max-w-lg rounded-3xl border border-gray-200 bg-white p-8 shadow-2xl">
+          <div className="relative flex justify-center">
 
-            {/* Top */}
+            {/* Purple Glow */}
 
-            <div className="flex items-start justify-between">
+            <div className="absolute top-10 h-[92%] w-[92%] rounded-3xl bg-gradient-to-br from-purple-300 via-fuchsia-200 to-indigo-200 opacity-50 blur-3xl"></div>
 
-              <div>
+            {/* Paper */}
 
-                <h3 className="text-2xl font-bold text-gray-900">
-                  ExamGen AI
-                </h3>
+            <div
+              className="
+              relative
+              aspect-[1/1.414]
+              w-[480px]
+              rotate-2
+              rounded-md
+              bg-white
+              p-10
+              shadow-[0_30px_60px_rgba(0,0,0,0.25)]
+              transition-all
+              duration-500
+              hover:rotate-0
+              hover:scale-[1.02]
+              "
+            >
 
-                <p className="text-sm text-gray-500">
-                  AI Generated Question Paper
+              {/* Top */}
+
+              <div className="flex items-center justify-between">
+
+                <div>
+
+                  <h3 className="text-2xl font-bold">
+
+                    ExamGen AI
+
+                  </h3>
+
+                  <p className="text-sm text-gray-500">
+
+                    AI Generated Question Paper
+
+                  </p>
+
+                </div>
+
+                <span className="rounded-full bg-purple-100 px-4 py-2 text-xs font-semibold text-purple-700">
+
+                  CBSE 2026
+
+                </span>
+
+              </div>
+
+              <hr className="my-6" />
+
+              {/* Header */}
+
+              <div className="text-center">
+
+                <img
+                  src="/cbse-logo.png"
+                  alt="CBSE"
+                  className="mx-auto mb-3 h-20"
+                />
+
+                <h1 className="text-xl font-extrabold uppercase tracking-widest">
+
+                  Central Board of
+
+                </h1>
+
+                <h1 className="text-xl font-extrabold uppercase tracking-widest">
+
+                  Secondary Education
+
+                </h1>
+
+                <h2 className="mt-3 text-lg font-bold">
+
+                  SAMPLE QUESTION PAPER
+
+                </h2>
+
+                <p className="mt-2 text-sm text-gray-500">
+
+                  Academic Session 2026–27
+
                 </p>
 
               </div>
 
-              <span className="rounded-full bg-purple-100 px-4 py-2 text-xs font-semibold text-purple-700">
-                AI Generated
-              </span>
+              <hr className="my-6" />
 
-            </div>
+              {/* Details */}
 
-            <div className="my-6 border-t"></div>
+              <div className="grid grid-cols-2 gap-3 text-sm">
 
-            {/* Title */}
+                <p>
+                  <strong>Class :</strong> XII
+                </p>
 
-            <h2 className="text-center text-xl font-bold tracking-wide text-gray-900">
-              CBSE SAMPLE QUESTION PAPER
-            </h2>
+                <p className="text-right">
+                  <strong>Subject :</strong> Physics
+                </p>
 
-            <div className="mt-6 flex justify-between text-sm text-gray-700">
+                <p>
+                  <strong>Time :</strong> 3 Hours
+                </p>
 
-              <span>
-                <strong>Class:</strong> XII
-              </span>
+                <p className="text-right">
+                  <strong>Marks :</strong> 70
+                </p>
 
-              <span>
-                <strong>Subject:</strong> Physics
-              </span>
-
-            </div>
-
-            <div className="mt-2 flex justify-between text-sm text-gray-700">
-
-              <span>
-                <strong>Marks:</strong> 70
-              </span>
-
-              <span>
-                <strong>Time:</strong> 3 Hours
-              </span>
-
-            </div>
-
-            <div className="my-6 border-t"></div>
-
-            {/* Instructions */}
-
-            <h4 className="font-semibold uppercase tracking-wide text-gray-900">
-              General Instructions
-            </h4>
-
-            <ul className="mt-4 list-disc space-y-2 pl-5 text-sm leading-6 text-gray-600">
-
-              <li>All questions are compulsory.</li>
-
-              <li>Read each question carefully before answering.</li>
-
-              <li>Use neat diagrams wherever required.</li>
-
-            </ul>
-
-            <div className="my-6 border-t"></div>
-
-            {/* Questions */}
-
-            <h4 className="font-semibold text-gray-900">
-              Section A
-            </h4>
-
-            <div className="mt-5 space-y-4 text-sm text-gray-700">
-
-              <div className="flex justify-between">
-                <span>Q1. Define Electric Flux.</span>
-                <span>2</span>
               </div>
 
-              <div className="flex justify-between">
-                <span>Q2. State Gauss's Law.</span>
-                <span>2</span>
+              <hr className="my-6" />
+
+              {/* Instructions */}
+
+              <h3 className="text-center text-lg font-bold uppercase">
+
+                General Instructions
+
+              </h3>
+
+              <ol className="mt-5 list-decimal space-y-2 pl-6 text-sm text-gray-700">
+
+                <li>All questions are compulsory.</li>
+
+                <li>Read every question carefully.</li>
+
+                <li>Draw neat labelled diagrams wherever required.</li>
+
+                <li>Follow CBSE competency-based pattern.</li>
+
+              </ol>
+
+              <hr className="my-6" />
+
+              {/* Continue in Part 2 */}
+                            {/* Section */}
+
+              <div className="mt-6">
+
+                <h3 className="rounded bg-purple-700 py-2 text-center text-base font-bold uppercase text-white">
+
+                  SECTION A
+
+                </h3>
+
+                <p className="mt-2 text-center text-xs italic text-gray-500">
+                  Multiple Choice Questions (1 Mark Each)
+                </p>
+
+                <div className="mt-5 space-y-4 text-sm">
+
+                  <div className="flex justify-between">
+                    <p><strong>Q1.</strong> Define Electric Flux.</p>
+                    <strong>1</strong>
+                  </div>
+
+                  <div className="flex justify-between">
+                    <p><strong>Q2.</strong> State Gauss's Law.</p>
+                    <strong>1</strong>
+                  </div>
+
+                  <div className="flex justify-between">
+                    <p><strong>Q3.</strong> What is Electric Dipole?</p>
+                    <strong>1</strong>
+                  </div>
+
+                  <div className="flex justify-between">
+                    <p><strong>Q4.</strong> Draw Electric Field Lines.</p>
+                    <strong>2</strong>
+                  </div>
+
+                </div>
+
               </div>
 
-              <div className="flex justify-between">
-                <span>Q3. Explain Coulomb's Law.</span>
-                <span>3</span>
+              <div className="mt-8 border-t pt-5">
+
+                <p className="text-center text-xs text-gray-500">
+                  Generated using <strong>ExamGen AI</strong>
+                </p>
+
               </div>
 
-              <div className="flex justify-between">
-                <span>Q4. Draw Electric Field Lines for a Dipole.</span>
-                <span>3</span>
-              </div>
+              <button
+                disabled
+                className="mt-8 flex w-full items-center justify-center gap-3 rounded-xl bg-gradient-to-r from-purple-700 to-indigo-700 py-3 font-semibold text-white opacity-90"
+              >
+                <Download size={18} />
+                Download PDF
+              </button>
 
             </div>
-
-            <button
-              disabled
-              className="mt-10 w-full cursor-not-allowed rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 py-3 font-semibold text-white opacity-80"
-            >
-              Download PDF
-            </button>
 
           </div>
 
-          {/* ========================= */}
-          {/* Right Side */}
-          {/* ========================= */}
+                        {/* ================= RIGHT ================= */}
 
           <div>
 
-            <h3 className="text-4xl font-bold leading-tight text-gray-900">
-              Everything You Need
-              <br />
-              to Prepare Smarter
-            </h3>
+            <span className="rounded-full bg-white/10 px-5 py-2 text-sm font-medium text-white backdrop-blur-md">
+              Built for Students & Teachers
+            </span>
 
-            <p className="mt-5 text-lg leading-8 text-gray-600">
-              ExamGen AI creates professional board-level question papers
-              tailored to your preferences, helping you practice more
-              efficiently and confidently.
+            <h2 className="mt-8 text-5xl font-extrabold leading-tight text-white">
+              Create Board-Level
+              <br />
+              Question Papers
+              <br />
+              in Seconds
+            </h2>
+
+            <p className="mt-8 text-lg leading-8 text-purple-100">
+              ExamGen AI generates professional CBSE question papers with
+              beautiful formatting, competency-based questions, proper
+              sections, case studies and printable PDF output.
             </p>
 
-            <div className="mt-10 space-y-5">
+            <div className="mt-12 space-y-5">
 
               {features.map((feature) => (
 
                 <div
                   key={feature}
-                  className="flex items-center gap-4 rounded-2xl border border-purple-100 bg-white p-5 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-purple-300 hover:shadow-lg"
+                  className="flex items-center gap-5 rounded-2xl border border-white/10 bg-white/10 p-5 backdrop-blur-md transition-all duration-300 hover:translate-x-2 hover:bg-white/20"
                 >
 
-                  <div className="flex h-11 w-11 items-center justify-center rounded-full bg-purple-100 text-purple-600">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-full bg-white text-purple-700">
 
                     <BadgeCheck size={22} />
 
                   </div>
 
-                  <p className="font-medium text-gray-700">
+                  <p className="text-lg font-medium text-white">
                     {feature}
                   </p>
 
@@ -195,12 +301,29 @@ function Preview() {
 
             </div>
 
+            <div className="mt-12 flex gap-5">
+
+              <button className="rounded-xl bg-white px-8 py-4 font-semibold text-purple-700 transition hover:scale-105">
+
+                Generate Paper
+
+              </button>
+
+              <button className="rounded-xl border border-white/20 px-8 py-4 font-semibold text-white backdrop-blur-md transition hover:bg-white/10">
+
+                Learn More
+
+              </button>
+
+            </div>
+
           </div>
 
         </div>
 
       </div>
-    </section>
+
+       </section>
   );
 }
 
