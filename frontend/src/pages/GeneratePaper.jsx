@@ -2,8 +2,7 @@ import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 /*import rehypeKatex from "rehype-katex";*/
 import "katex/dist/katex.min.css";
-import jsPDF from "jspdf";
-import html2canvas from "html2canvas";
+import html2pdf from "html2pdf.js";
 import { useRef } from "react";
 import MainLayout from "../components/layout/MainLayout";
 import api from "../api/api";
@@ -27,6 +26,7 @@ function GeneratePaper() {
   const [generated, setGenerated] = useState(false);
   const [paper, setPaper] = useState("");
   const paperRef = useRef(null);
+  const [pdfUrl, setPdfUrl] = useState("");
 
   const handleChange = (e) => {
     setFormData({
@@ -51,6 +51,7 @@ function GeneratePaper() {
     console.log("Response:", response.data);
 
     setPaper(response.data.paper);
+    setPdfUrl(response.data.pdf_url);
     setGenerated(true);
 
   } catch (error) {
@@ -60,34 +61,17 @@ function GeneratePaper() {
     setLoading(false);
   }
 };
-const handleDownloadPDF = async () => {
-  const input = paperRef.current;
+const handleDownloadPDF = () => {
 
-  const canvas = await html2canvas(input, {
-    scale: 2,
-    useCORS: true,
-  });
+    if (!pdfUrl) return;
 
-  const imgData = canvas.toDataURL("image/png");
-
-  const pdf = new jsPDF("p", "mm", "a4");
-
-  const pdfWidth = pdf.internal.pageSize.getWidth();
-
-  const pdfHeight =
-    (canvas.height * pdfWidth) / canvas.width;
-
-  pdf.addImage(
-    imgData,
-    "PNG",
-    0,
-    0,
-    pdfWidth,
-    pdfHeight
-  );
-
-  pdf.save("QuestionPaper.pdf");
+    window.open(
+        `http://127.0.0.1:8000${pdfUrl}`,
+        "_blank"
+    );
 };
+
+ 
   return (
     <MainLayout>
 
@@ -258,17 +242,17 @@ const handleDownloadPDF = async () => {
       <div
   ref={paperRef}
   className="
-mx-auto
-w-[210mm]
-min-h-[297mm]
-bg-white
-p-[18mm]
-shadow-2xl
-border
-text-black
-overflow-hidden
-break-words
-"
+    mx-auto
+    max-w-5xl
+    bg-white
+    p-10
+    border
+    shadow-xl
+    rounded-xl
+    overflow-auto
+    break-words
+    whitespace-pre-wrap
+  "
 >
         <div className="mb-8 flex items-center justify-between border-b pb-5">
 
@@ -287,9 +271,14 @@ break-words
   className="
 prose
 max-w-none
-
+overflow-x-auto
 break-words
 whitespace-pre-wrap
+
+prose-pre:overflow-x-auto
+
+prose-table:block
+prose-table:overflow-x-auto
 
 prose-h1:text-3xl
 prose-h1:text-center
@@ -347,6 +336,7 @@ prose-strong:text-black
     hr: () => (
       <hr className="my-8 border-gray-400" />
     )
+
   }}
 >
   {paper}

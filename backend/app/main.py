@@ -8,6 +8,8 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.models.paper import PaperRequest
 from app.services.gemini_service import generate_question_paper
+from fastapi.responses import FileResponse
+from app.services.pdf_service import generate_pdf
 
 app = FastAPI()
 
@@ -28,6 +30,23 @@ def home():
 @app.post("/generate-paper")
 def generate_paper(data: PaperRequest):
     paper = generate_question_paper(data)
+    pdf_path = generate_pdf(
+    paper,
+    "QuestionPaper.pdf"
+    )
+
     return {
-        "paper": paper
-    }
+    "paper": paper,
+    "pdf_url": "/download-pdf"
+}
+
+@app.get("/download-pdf")
+def download_pdf():
+
+    path = "generated_papers/QuestionPaper.pdf"
+
+    return FileResponse(
+        path,
+        media_type="application/pdf",
+        filename="QuestionPaper.pdf"
+    )
