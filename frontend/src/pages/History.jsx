@@ -1,30 +1,23 @@
+import {useEffect, useState} from "react";
 import MainLayout from "../components/layout/MainLayout";
 import { Eye, Download, FileText } from "lucide-react";
+import api from "../api/api";
 
 function History() {
-  const historyData = [
-    {
-      subject: "DBMS",
-      className: "B.Tech 3rd Year",
-      marks: 30,
-      difficulty: "Easy",
-      date: "Today",
-    },
-    {
-      subject: "Operating System",
-      className: "B.Tech 2nd Year",
-      marks: 50,
-      difficulty: "Medium",
-      date: "Yesterday",
-    },
-    {
-      subject: "Computer Networks",
-      className: "B.Tech 3rd Year",
-      marks: 80,
-      difficulty: "Hard",
-      date: "18 July",
-    },
-  ];
+  const [historyData, setHistoryData] = useState([]);
+
+  useEffect(() => {
+    fetchPapers();
+  }, []);
+
+  const fetchPapers = async () => {
+    try {
+      const response = await api.get("/papers");
+      setHistoryData(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <MainLayout>
@@ -84,7 +77,7 @@ function History() {
                   </td>
 
                   <td className="text-gray-500">
-                    {item.date}
+                    {new Date(item.created_at).toLocaleDateString()}
                   </td>
 
                   {/* ACTIONS */}
@@ -95,10 +88,13 @@ function History() {
                       View
                     </button>
 
-                    <button className="flex items-center gap-1 rounded-lg bg-green-100 px-3 py-1 text-green-700 hover:bg-green-200">
-                      <Download size={16} />
-                      Download
-                    </button>
+                    <button onClick={() => {
+                      window.open("http://127.0.0.1:8000/download-pdf");}}
+                      className="flex items-center gap-1 rounded-lg bg-green-100 px-3 py-1 text-green-700 hover:bg-green-200"
+                      >
+                        <Download size={16} />
+                        Download
+                        </button>
 
                   </td>
 

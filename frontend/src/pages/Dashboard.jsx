@@ -1,9 +1,25 @@
 import MainLayout from "../components/layout/MainLayout";
 import DashboardCards from "../components/dashboard/DashboardCards";
 import RecentPapers from "../components/dashboard/RecentPapers";
+import { useEffect, useState } from "react";
+import api from "../api/api";
 
 function Dashboard() {
   const name = localStorage.getItem("name");
+  const [papers, setPapers] = useState([]);
+
+useEffect(() => {
+  fetchPapers();
+}, []);
+
+const fetchPapers = async () => {
+  try {
+    const response = await api.get("/papers");
+    setPapers(response.data);
+  } catch (error) {
+    console.log(error);
+  }
+};
   return (
     <MainLayout>
 
@@ -34,10 +50,10 @@ function Dashboard() {
       </div>
 
       {/* DASHBOARD CARDS */}
-      <DashboardCards />
+      <DashboardCards papers={papers} />
 
       {/* RECENT PAPERS */}
-      <RecentPapers />
+      <RecentPapers papers={papers} />
 
     </MainLayout>
   );

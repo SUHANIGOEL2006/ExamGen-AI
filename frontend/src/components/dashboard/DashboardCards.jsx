@@ -5,30 +5,50 @@ import {
   Trophy,
 } from "lucide-react";
 
-function DashboardCards() {
+function DashboardCards({ papers }) {
 
-  const cards = [
-    {
-      title: "Papers Generated",
-      value: 24,
-      icon: FileText,
-    },
-    {
-      title: "Subjects",
-      value: 6,
-      icon: BookOpen,
-    },
-    {
-      title: "Downloads",
-      value: 15,
-      icon: Download,
-    },
-    {
-      title: "This Month",
-      value: 9,
-      icon: Trophy,
-    },
-  ];
+  const totalPapers = papers.length;
+
+const totalSubjects = new Set(
+  papers.map((paper) => paper.subject)
+).size;
+
+const totalDownloads = papers.length;
+
+const thisMonth = papers.filter((paper) => {
+
+  const created = new Date(paper.created_at);
+  const today = new Date();
+
+  return (
+    created.getMonth() === today.getMonth() &&
+    created.getFullYear() === today.getFullYear()
+  );
+
+}).length;
+
+const cards = [
+  {
+    title: "Papers Generated",
+    value: totalPapers,
+    icon: FileText,
+  },
+  {
+    title: "Subjects",
+    value: totalSubjects,
+    icon: BookOpen,
+  },
+  {
+    title: "Downloads",
+    value: totalDownloads,
+    icon: Download,
+  },
+  {
+    title: "This Month",
+    value: thisMonth,
+    icon: Trophy,
+  },
+];
 
   return (
     <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">

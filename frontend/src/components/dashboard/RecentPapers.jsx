@@ -1,26 +1,9 @@
 import { Eye, Download, FileText } from "lucide-react";
 
-function RecentPapers() {
-  const papers = [
-    {
-      subject: "DBMS",
-      difficulty: "Easy",
-      marks: 30,
-      date: "Today",
-    },
-    {
-      subject: "Operating System",
-      difficulty: "Medium",
-      marks: 50,
-      date: "Yesterday",
-    },
-    {
-      subject: "Computer Networks",
-      difficulty: "Hard",
-      marks: 80,
-      date: "18 Jul",
-    },
-  ];
+function RecentPapers({ papers }) {
+  const recentPapers = [...papers]
+  .reverse()
+  .slice(0, 5);
 
   const getDifficultyStyle = (level) => {
     switch (level) {
@@ -76,7 +59,7 @@ function RecentPapers() {
 
           <tbody>
 
-            {papers.map((paper, index) => (
+            {recentPapers.map((paper, index) => (
 
               <tr
                 key={index}
@@ -102,7 +85,7 @@ function RecentPapers() {
 
                 {/* Date */}
                 <td className="text-gray-500">
-                  {paper.date}
+                  {new Date(paper.created_at).toLocaleDateString()}
                 </td>
 
                 {/* Actions */}
@@ -115,7 +98,9 @@ function RecentPapers() {
                   </button>
 
                   {/* Download */}
-                  <button className="flex items-center gap-1 rounded-lg bg-green-100 px-3 py-1 text-green-700 hover:bg-green-200 transition">
+                  <button onClick={() =>
+                  window.open("http://127.0.0.1:8000/download-pdf")
+                  }className="flex items-center gap-1 rounded-lg bg-green-100 px-3 py-1 text-green-700 hover:bg-green-200 transition">
                     <Download size={16} />
                     Download
                   </button>
