@@ -5,10 +5,58 @@ import { Eye, EyeOff } from "lucide-react";
 import Navbar from "../components/layout/Navbar";
 import Footer from "../components/layout/Footer";
 
+import { useNavigate } from "react-router-dom";
+import api from "../api/api";
+
 function Signup() {
 
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
+  const navigate = useNavigate();
+
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+  });
+
+  const handleChange = (e) => {
+  setFormData({
+    ...formData,
+    [e.target.name]: e.target.value,
+  });
+};
+
+const handleSignup = async (e) => {
+  e.preventDefault();
+
+  if (formData.password !== formData.confirmPassword) {
+    alert("Passwords do not match");
+    return;
+  }
+
+  try {
+    const response = await api.post("/auth/signup", {
+      name: formData.name,
+      email: formData.email,
+      password: formData.password,
+    });
+
+    alert(response.data.message);
+
+    navigate("/login");
+
+  } catch (err) {
+
+    alert(
+      err.response?.data?.detail ||
+      "Signup failed"
+    );
+
+  }
+};
 
   return (
     <>
@@ -50,7 +98,10 @@ function Signup() {
 
             </div>
 
-            <form className="mt-10 space-y-6">
+            <form
+              onSubmit={handleSignup}
+              className="mt-10 space-y-6"
+            > 
 
               {/* Name */}
 
@@ -62,6 +113,9 @@ function Signup() {
 
                 <input
                   type="text"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleChange}
                   placeholder="Enter your full name"
                   className="w-full rounded-xl border border-gray-300 px-4 py-3 outline-none transition focus:border-purple-600 focus:ring-4 focus:ring-purple-100"
                 />
@@ -78,6 +132,9 @@ function Signup() {
 
                 <input
                   type="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
                   placeholder="Enter your email"
                   className="w-full rounded-xl border border-gray-300 px-4 py-3 outline-none transition focus:border-purple-600 focus:ring-4 focus:ring-purple-100"
                 />
@@ -96,6 +153,9 @@ function Signup() {
 
                   <input
                     type={showPassword ? "text" : "password"}
+                    name="password"
+                    value={formData.password}
+                    onChange={handleChange}
                     placeholder="Create a password"
                     className="w-full rounded-xl border border-gray-300 py-3 pl-4 pr-12 outline-none transition focus:border-purple-600 focus:ring-4 focus:ring-purple-100"
                   />
@@ -124,12 +184,15 @@ function Signup() {
 
                   <input
                     type={showConfirmPassword ? "text" : "password"}
+                    name="confirmPassword"
+                    value={formData.confirmPassword}
+                    onChange={handleChange}
                     placeholder="Confirm your password"
                     className="w-full rounded-xl border border-gray-300 py-3 pl-4 pr-12 outline-none transition focus:border-purple-600 focus:ring-4 focus:ring-purple-100"
                   />
 
                   <button
-                    type="button"
+                    type="submit"
                     onClick={() =>
                       setShowConfirmPassword(!showConfirmPassword)
                     }

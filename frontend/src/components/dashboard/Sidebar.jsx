@@ -7,6 +7,7 @@ import {
 } from "lucide-react";
 
 import { NavLink } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function Sidebar() {
   const menu = [
@@ -15,6 +16,14 @@ function Sidebar() {
     { name: "History", icon: History, path: "/history" },
     { name: "My Profile", icon: User, path: "/profile" },
   ];
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("name");
+
+    navigate("/login");
+  };
 
   return (
     <aside className="flex min-h-screen w-64 flex-col border-r bg-white p-6">
@@ -52,7 +61,7 @@ function Sidebar() {
 
       {/* Logout (NOW FIXED 👇) */}
       <div className="my-6 border-t border-gray-300"></div>
-      <button className="flex items-center gap-3 rounded-xl border px-4 py-3 text-red-500 transition hover:bg-red-50">
+      <button onClick={handleLogout} className="flex items-center gap-3 rounded-xl border px-4 py-3 text-red-500 transition hover:bg-red-50">
         <LogOut size={18} />
         Logout
       </button>

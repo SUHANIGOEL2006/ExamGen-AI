@@ -1,12 +1,58 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Eye, EyeOff } from "lucide-react";
 
 import Navbar from "../components/layout/Navbar";
 import Footer from "../components/layout/Footer";
+import api from "../api/api";
 
 function Login() {
   const [showPassword, setShowPassword] = useState(false);
+  const navigate = useNavigate();
+
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
+
+  const handleChange = (e) => {
+  setFormData({
+    ...formData,
+    [e.target.name]: e.target.value,
+  });
+};
+const handleLogin = async (e) => {
+  e.preventDefault();
+  console.log("Login button clicked");
+  try {
+    const response = await api.post("/auth/login", {
+      email: formData.email,
+      password: formData.password,
+    });
+
+    localStorage.setItem(
+      "token",
+      response.data.access_token
+    );
+
+    localStorage.setItem(
+      "name",
+      response.data.name
+    );
+
+    alert("Login Successful 🎉");
+
+    navigate("/dashboard");
+
+  } catch (error) {
+
+    alert(
+      error.response?.data?.detail ||
+      "Invalid Email or Password"
+    );
+
+  }
+};
 
   return (
     <>
@@ -52,7 +98,7 @@ function Login() {
 
             {/* Form */}
 
-            <form className="mt-10 space-y-6">
+            <form onSubmit={handleLogin} className="mt-10 space-y-6">
 
               {/* Email */}
 
@@ -64,10 +110,12 @@ function Login() {
 
                 <input
                   type="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
                   placeholder="Enter your email"
                   className="w-full rounded-xl border border-gray-300 px-4 py-3 outline-none transition-all focus:border-purple-600 focus:ring-4 focus:ring-purple-100"
                 />
-
               </div>
 
               {/* Password */}
@@ -82,10 +130,12 @@ function Login() {
 
                   <input
                     type={showPassword ? "text" : "password"}
+                    name="password"
+                    value={formData.password}
+                    onChange={handleChange}
                     placeholder="Enter your password"
                     className="w-full rounded-xl border border-gray-300 py-3 pl-4 pr-12 outline-none transition-all focus:border-purple-600 focus:ring-4 focus:ring-purple-100"
                   />
-
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}

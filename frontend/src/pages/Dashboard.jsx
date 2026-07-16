@@ -3,6 +3,7 @@ import DashboardCards from "../components/dashboard/DashboardCards";
 import RecentPapers from "../components/dashboard/RecentPapers";
 
 function Dashboard() {
+  const name = localStorage.getItem("name");
   return (
     <MainLayout>
 
@@ -14,13 +15,9 @@ function Dashboard() {
 
           {/* LONG BADGE */}
           <div className="mb-3 inline-flex items-center rounded-full bg-purple-100 px-5 py-2 text-sm font-medium text-purple-700">
-            👋 Welcome back
+            Welcome back, {name} 👋
           </div>
 
-          {/* Title */}
-          <h1 className="text-3xl font-bold text-gray-800">
-            Suhani Goel
-          </h1>
 
           {/* Subtitle */}
           <p className="text-gray-500">
