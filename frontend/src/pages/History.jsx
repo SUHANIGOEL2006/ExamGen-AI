@@ -103,7 +103,7 @@ function History() {
             <button
               title="Download PDF"
               onClick={() =>
-                window.open("http://127.0.0.1:8000/download-pdf")
+                window.open(`http://127.0.0.1:8000/download-pdf/${item.pdf_name}`)
               }
               className="flex h-10 w-10 items-center justify-center rounded-lg bg-green-100 text-green-700 transition hover:scale-105 hover:bg-green-200"
             >

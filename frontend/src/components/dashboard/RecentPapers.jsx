@@ -149,7 +149,7 @@ function RecentPapers({ papers }) {
 
                   {/* Download */}
                   <button onClick={() =>
-                  window.open("http://127.0.0.1:8000/download-pdf")
+                  window.open(`http://127.0.0.1:8000/download-pdf/${paper.pdf_name}`)
                   }title="Download PDF"
   className="flex h-10 w-10 items-center justify-center rounded-lg bg-green-100 text-green-700 transition hover:scale-105 hover:bg-green-200">
                     <Download size={16} />

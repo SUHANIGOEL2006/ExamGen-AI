@@ -15,6 +15,8 @@ from app.database.database import papers_collection
 from datetime import datetime
 from fastapi import Depends
 from app.auth.auth import get_current_user
+from datetime import datetime
+from fastapi import HTTPException
 
 app = FastAPI()
 
@@ -44,10 +46,13 @@ def generate_paper(
     paper = generate_question_paper(data)
 
     # PDF
+    pdf_name = f"QuestionPaper_{datetime.now().strftime('%Y%m%d_%H%M%S')}.pdf"
+    
     pdf_path = generate_pdf(
-        paper,
-        "QuestionPaper.pdf"
-    )
+    paper,
+    data.subject,
+    pdf_name
+)
 
     # Save in MongoDB
     paper_data = {
@@ -57,7 +62,7 @@ def generate_paper(
         "marks": data.marks,
         "difficulty": data.difficulty,
         "paper": paper,
-        "pdf_name": "QuestionPaper.pdf",
+        "pdf_name": pdf_name,
         "created_at": datetime.now()
     }
 
@@ -65,17 +70,24 @@ def generate_paper(
 
     return {
         "paper": paper,
-        "pdf_url": "/download-pdf"
+        "pdf_url": f"/download-pdf/{pdf_name}"
     }
-@app.get("/download-pdf")
-def download_pdf():
+@app.get("/download-pdf/{filename}")
+def download_pdf(filename: str):
 
-    path = "generated_papers/QuestionPaper.pdf"
+    path = os.path.join("generated_papers", filename)
+
+    print("Requested:", filename)
+    print("Looking at:", path)
+    print("Exists:", os.path.exists(path))
+
+    if not os.path.exists(path):
+        raise HTTPException(status_code=404, detail="PDF not found")
 
     return FileResponse(
         path,
         media_type="application/pdf",
-        filename="QuestionPaper.pdf"
+        filename=filename
     )
 
 @app.get("/papers")

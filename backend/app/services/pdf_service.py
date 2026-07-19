@@ -3,10 +3,25 @@ from reportlab.platypus import (
     Paragraph,
     Spacer,
 )
+from reportlab.pdfbase import pdfmetrics
+from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.lib.styles import getSampleStyleSheet
 from reportlab.lib.enums import TA_CENTER
 from reportlab.lib.colors import HexColor
 import os
+
+# Register Fonts
+pdfmetrics.registerFont(
+    TTFont("NotoSans", "fonts/NotoSans-Regular.ttf")
+)
+
+pdfmetrics.registerFont(
+    TTFont("NotoSans-Bold", "fonts/NotoSans-Bold.ttf")
+)
+
+pdfmetrics.registerFont(
+    TTFont("NotoSansDevanagari", "fonts/NotoSansDevanagari.ttf")
+)
 
 styles = getSampleStyleSheet()
 
@@ -18,17 +33,26 @@ heading_style = styles["Heading2"]
 heading_style.textColor = HexColor("#4f46e5")
 
 normal_style = styles["BodyText"]
-normal_style.fontName = "Helvetica"
 normal_style.fontSize = 11
 normal_style.leading = 18
 normal_style.spaceAfter = 8
 
 
-def generate_pdf(text, filename="QuestionPaper.pdf"):
+def generate_pdf(text, subject, filename="QuestionPaper.pdf"):
 
     os.makedirs("generated_papers", exist_ok=True)
 
     pdf_path = os.path.join("generated_papers", filename)
+
+    # Choose font according to subject
+    if subject.lower() in ["hindi", "sanskrit"]:
+        title_style.fontName = "NotoSansDevanagari"
+        heading_style.fontName = "NotoSansDevanagari"
+        normal_style.fontName = "NotoSansDevanagari"
+    else:
+        title_style.fontName = "NotoSans-Bold"
+        heading_style.fontName = "NotoSans-Bold"
+        normal_style.fontName = "NotoSans"
 
     doc = SimpleDocTemplate(
         pdf_path,
@@ -46,12 +70,10 @@ def generate_pdf(text, filename="QuestionPaper.pdf"):
 
         line = line.strip()
 
-        # Skip empty line
         if not line:
             story.append(Spacer(1, 10))
             continue
 
-        # Remove markdown
         line = (
             line.replace("### ", "")
                 .replace("## ", "")
@@ -60,36 +82,23 @@ def generate_pdf(text, filename="QuestionPaper.pdf"):
                 .replace("---", "")
         )
 
-        # Convert bullets
         if line.startswith("-"):
             line = "• " + line[1:].strip()
 
-        # Title
         if "BOARD" in line.upper() or "QUESTION PAPER" in line.upper():
-            story.append(
-                Paragraph(f"<b>{line}</b>", title_style)
-            )
+            story.append(Paragraph(line, title_style))
             story.append(Spacer(1, 10))
 
-        # Section headings
         elif line.startswith("SECTION"):
-            story.append(
-                Paragraph(f"<b>{line}</b>", heading_style)
-            )
+            story.append(Paragraph(line, heading_style))
             story.append(Spacer(1, 8))
 
-        # General Instructions
         elif line.upper() == "GENERAL INSTRUCTIONS":
-            story.append(
-                Paragraph("<b>GENERAL INSTRUCTIONS</b>", heading_style)
-            )
+            story.append(Paragraph(line, heading_style))
             story.append(Spacer(1, 8))
 
-        # Normal text
         else:
-            story.append(
-                Paragraph(line, normal_style)
-            )
+            story.append(Paragraph(line, normal_style))
 
     doc.build(story)
 
