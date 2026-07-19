@@ -39,6 +39,10 @@ const handleLogin = async (e) => {
       "name",
       response.data.name
     );
+    localStorage.setItem(
+      "email",
+      formData.email
+    );
 
     alert("Login Successful 🎉");
 

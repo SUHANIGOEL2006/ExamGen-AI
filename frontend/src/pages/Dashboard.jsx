@@ -1,10 +1,13 @@
+import { useNavigate } from "react-router-dom";
 import MainLayout from "../components/layout/MainLayout";
 import DashboardCards from "../components/dashboard/DashboardCards";
 import RecentPapers from "../components/dashboard/RecentPapers";
 import { useEffect, useState } from "react";
 import api from "../api/api";
+import { Plus } from "lucide-react";
 
 function Dashboard() {
+  const navigate = useNavigate();
   const name = localStorage.getItem("name");
   const [papers, setPapers] = useState([]);
 
@@ -43,7 +46,7 @@ const fetchPapers = async () => {
         </div>
 
         {/* Right button */}
-        <button className="rounded-xl bg-purple-200 px-6 py-3 text-purple-800 font-medium shadow-sm hover:bg-purple-300 transition">
+        <button onClick={() => navigate("/generate-paper")} className="rounded-xl bg-purple-200 px-6 py-3 text-purple-800 font-medium shadow-sm hover:bg-purple-300 transition">
           + Generate Paper
         </button>
 

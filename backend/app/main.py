@@ -13,6 +13,8 @@ from fastapi.responses import FileResponse
 from app.services.pdf_service import generate_pdf
 from app.database.database import papers_collection
 from datetime import datetime
+from fastapi import Depends
+from app.auth.auth import get_current_user
 
 app = FastAPI()
 
@@ -33,7 +35,10 @@ def home():
     }
 
 @app.post("/generate-paper")
-def generate_paper(data: PaperRequest):
+def generate_paper(
+    data: PaperRequest,
+    current_user: str = Depends(get_current_user)
+):
 
     # AI Paper
     paper = generate_question_paper(data)
@@ -46,6 +51,7 @@ def generate_paper(data: PaperRequest):
 
     # Save in MongoDB
     paper_data = {
+        "user_email": current_user,
         "className": data.className,
         "subject": data.subject,
         "marks": data.marks,
@@ -73,11 +79,15 @@ def download_pdf():
     )
 
 @app.get("/papers")
-def get_papers():
+def get_papers(
+    current_user: str = Depends(get_current_user)
+):
 
     papers = []
 
-    for paper in papers_collection.find():
+    for paper in papers_collection.find({
+        "user_email": current_user
+    }):
 
         paper["_id"] = str(paper["_id"])
 

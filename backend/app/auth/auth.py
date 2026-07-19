@@ -1,9 +1,11 @@
 from passlib.context import CryptContext
-from jose import jwt
+from jose import jwt, JWTError
 from datetime import datetime, timedelta
-
+from fastapi import Depends, HTTPException
+from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 SECRET_KEY = "examgen_secret_key"
 ALGORITHM = "HS256"
+security = HTTPBearer()
 
 pwd_context = CryptContext(
     schemes=["bcrypt"],
@@ -34,3 +36,31 @@ def create_access_token(data):
         SECRET_KEY,
         algorithm=ALGORITHM
     )
+
+def get_current_user(
+    credentials: HTTPAuthorizationCredentials = Depends(security)
+):
+    token = credentials.credentials
+
+    try:
+        payload = jwt.decode(
+            token,
+            SECRET_KEY,
+            algorithms=[ALGORITHM]
+        )
+
+        email = payload.get("email")
+
+        if email is None:
+            raise HTTPException(
+                status_code=401,
+                detail="Invalid Token"
+            )
+
+        return email
+
+    except JWTError:
+        raise HTTPException(
+            status_code=401,
+            detail="Invalid Token"
+        )
