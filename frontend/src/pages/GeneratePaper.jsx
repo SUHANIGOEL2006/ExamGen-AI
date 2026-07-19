@@ -107,7 +107,7 @@ const handleDownloadPDF = () => {
               name="className"
               value={formData.className}
               onChange={handleChange}
-              placeholder="e.g. B.Tech 3rd Year"
+              placeholder="e.g. Class 10"
               className="w-full rounded-xl border px-4 py-3 outline-none focus:border-purple-400"
             />
           </div>
@@ -123,7 +123,7 @@ const handleDownloadPDF = () => {
               name="subject"
               value={formData.subject}
               onChange={handleChange}
-              placeholder="e.g. Operating System"
+              placeholder="e.g. Science"
               className="w-full rounded-xl border px-4 py-3 outline-none focus:border-purple-400"
             />
           </div>
@@ -143,8 +143,8 @@ const handleDownloadPDF = () => {
             >
               <option value={30}>30 Marks</option>
               <option value={50}>50 Marks</option>
+              <option value={60}>60 Marks</option>
               <option value={80}>80 Marks</option>
-              <option value={100}>100 Marks</option>
             </select>
           </div>
 
