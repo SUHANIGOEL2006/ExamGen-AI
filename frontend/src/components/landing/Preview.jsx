@@ -1,4 +1,5 @@
 import { BadgeCheck, Download } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 function Preview() {
   const features = [
@@ -9,6 +10,8 @@ function Preview() {
     "Printable PDF",
     "Answer Key Included",
   ];
+  const navigate = useNavigate();
+  const token = localStorage.getItem("token");
 
   return (
     <section className="relative overflow-hidden bg-gradient-to-br from-purple-700 via-indigo-700 to-purple-900 py-24">
@@ -113,11 +116,6 @@ function Preview() {
 
               <div className="text-center">
 
-                <img
-                  src="/cbse-logo.png"
-                  alt="CBSE"
-                  className="mx-auto mb-3 h-20"
-                />
 
                 <h1 className="text-xl font-extrabold uppercase tracking-widest">
 
@@ -303,13 +301,15 @@ function Preview() {
 
             <div className="mt-12 flex gap-5">
 
-              <button className="rounded-xl bg-white px-8 py-4 font-semibold text-purple-700 transition hover:scale-105">
+              <button onClick={() => token ? navigate("/dashboard") : navigate("/signup")}
+              className="rounded-xl bg-white px-8 py-4 font-semibold text-purple-700 transition hover:scale-105">
 
                 Generate Paper
 
               </button>
 
-              <button className="rounded-xl border border-white/20 px-8 py-4 font-semibold text-white backdrop-blur-md transition hover:bg-white/10">
+              <button onClick={() => { document.getElementById("how-it-works")?.scrollIntoView({ behavior: "smooth" });}}
+              className="rounded-xl border border-white/20 px-8 py-4 font-semibold text-white backdrop-blur-md transition hover:bg-white/10">
 
                 Learn More
 

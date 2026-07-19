@@ -5,8 +5,11 @@ import {
   ChevronDown,
   ArrowRight,
 } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 function Hero() {
+  const navigate = useNavigate();
+  const token = localStorage.getItem("token");
   return (
     <section className="bg-white">
 
@@ -45,7 +48,8 @@ function Hero() {
 
         <div className="mt-10 flex flex-col gap-4 sm:flex-row">
 
-          <button className="group flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 px-8 py-4 font-semibold text-white shadow-lg transition duration-300 hover:-translate-y-1 hover:shadow-2xl">
+          <button onClick={() =>token ? navigate("/dashboard") : navigate("/signup")}
+          className="group flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 px-8 py-4 font-semibold text-white shadow-lg transition duration-300 hover:-translate-y-1 hover:shadow-2xl">
 
             Generate Paper
 
@@ -56,7 +60,8 @@ function Hero() {
 
           </button>
 
-          <button className="rounded-xl border border-purple-300 px-8 py-4 font-semibold text-purple-700 transition duration-300 hover:bg-purple-50">
+          <button onClick={() => { document.getElementById("features")?.scrollIntoView({ behavior: "smooth" });}}
+          className="rounded-xl border border-purple-300 px-8 py-4 font-semibold text-purple-700 transition duration-300 hover:bg-purple-50">
             Learn More
           </button>
 

@@ -35,7 +35,7 @@ function HowItWorks() {
   ];
 
   return (
-    <section className="bg-white py-24">
+    <section id= "how-it-works" className="bg-white py-24">
 
       <div className="mx-auto max-w-7xl px-6">
 
@@ -60,7 +60,7 @@ function HowItWorks() {
               className="group relative overflow-hidden rounded-3xl border border-gray-200 bg-gray-50 p-6 transition-all duration-300 hover:-translate-y-2 hover:border-purple-300 hover:bg-white hover:shadow-xl"
             >
 
-              <span className="absolute right-5 top-5 text-5xl font-bold text-gray-100">
+              <span className="absolute right-5 top-5 text-5xl font-bold text-gray-200">
 
                 {step.no}
 

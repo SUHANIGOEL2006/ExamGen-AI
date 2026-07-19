@@ -1,4 +1,8 @@
+import { useNavigate } from "react-router-dom";
+
 function CTA() {
+  const navigate = useNavigate();
+  const token = localStorage.getItem("token");
   return (
     <section className="bg-white px-6 py-20">
 
@@ -19,7 +23,8 @@ function CTA() {
             prepare for your exams with confidence.
           </p>
 
-          <button className="mt-10 rounded-xl bg-white px-8 py-4 text-lg font-semibold text-purple-700 transition hover:scale-105 hover:shadow-xl">
+          <button onClick={() => token ? navigate("/dashboard") : navigate("/signup")}
+          className="mt-10 rounded-xl bg-white px-8 py-4 text-lg font-semibold text-purple-700 transition hover:scale-105 hover:shadow-xl">
             Generate Your First Paper →
           </button>
 
