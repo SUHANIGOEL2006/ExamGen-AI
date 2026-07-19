@@ -1,14 +1,26 @@
 import MainLayout from "../components/layout/MainLayout";
 import { User, Mail, BookUser, Save } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import api from "../api/api";
 
 function Profile() {
   const [profile, setProfile] = useState({
-    name: "Suhani Goel",
-    email: "suhani@example.com",
-    role: "Student",
-    college: "B.Tech Computer Science",
-  });
+  name: "",
+  email: "",
+});
+
+useEffect(() => {
+  fetchProfile();
+}, []);
+
+const fetchProfile = async () => {
+  try {
+    const response = await api.get("/auth/profile");
+    setProfile(response.data);
+  } catch (error) {
+    console.log(error);
+  }
+};
 
   const handleChange = (e) => {
     setProfile({
@@ -17,9 +29,18 @@ function Profile() {
     });
   };
 
-  const handleSave = () => {
-    alert("Profile updated successfully 🎉");
-  };
+  const handleSave = async () => {
+  try {
+    await api.put("/auth/profile", {
+      name: profile.name,
+    });
+    localStorage.setItem("name", profile.name);
+    alert("Profile Updated Successfully 🎉");
+    window.location.reload();
+  } catch (error) {
+    console.log(error);
+  }
+};
 
   return (
     <MainLayout>
@@ -62,34 +83,8 @@ function Profile() {
             <input
               name="email"
               value={profile.email}
-              onChange={handleChange}
-              className="w-full rounded-xl border px-4 py-3 focus:border-purple-400 outline-none"
-            />
-          </div>
-
-          {/* ROLE */}
-          <div>
-            <label className="text-gray-700 font-medium">Role</label>
-
-            <input
-              name="role"
-              value={profile.role}
-              onChange={handleChange}
-              className="mt-2 w-full rounded-xl border px-4 py-3"
-            />
-          </div>
-
-          {/* COLLEGE */}
-          <div>
-            <label className="text-gray-700 font-medium">
-              College / University
-            </label>
-
-            <input
-              name="college"
-              value={profile.college}
-              onChange={handleChange}
-              className="mt-2 w-full rounded-xl border px-4 py-3"
+              readOnly
+              className="w-full rounded-xl border bg-gray-100 px-4 py-3 outline-none cursor-not-allowed"
             />
           </div>
 

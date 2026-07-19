@@ -74,7 +74,7 @@ function Sidebar() {
           </div>
 
           <div>
-
+        
             <h2 className="text-lg font-semibold">
               {name}
             </h2>

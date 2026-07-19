@@ -1,3 +1,5 @@
+from fastapi import Depends
+from app.auth.auth import get_current_user
 from fastapi import APIRouter, HTTPException
 from app.models.user import UserSignup, UserLogin
 from app.database.database import users_collection
@@ -62,4 +64,43 @@ def login(user: UserLogin):
     return {
         "access_token": token,
         "name": db_user["name"]
+    }
+
+@router.get("/profile")
+def get_profile(
+    current_user: str = Depends(get_current_user)
+):
+
+    user = users_collection.find_one(
+        {"email": current_user},
+        {"password": 0}
+    )
+
+    if not user:
+        raise HTTPException(
+            status_code=404,
+            detail="User not found"
+        )
+
+    user["_id"] = str(user["_id"])
+
+    return user
+
+@router.put("/profile")
+def update_profile(
+    data: dict,
+    current_user: str = Depends(get_current_user)
+):
+
+    users_collection.update_one(
+        {"email": current_user},
+        {
+            "$set": {
+                "name": data["name"]
+            }
+        }
+    )
+
+    return {
+        "message": "Profile Updated Successfully"
     }
