@@ -1,15 +1,53 @@
 import {useEffect, useState} from "react";
 import MainLayout from "../components/layout/MainLayout";
-import { Eye, Download, FileText } from "lucide-react";
+import { Eye, Download, FileText, Search, ArrowUpDown} from "lucide-react";
 import api from "../api/api";
 
 function History() {
   const [historyData, setHistoryData] = useState([]);
   const [selectedPaper, setSelectedPaper] = useState(null);
+  const [search, setSearch] = useState("");
+  const [sortBy, setSortBy] = useState("");
 
   useEffect(() => {
     fetchPapers();
   }, []);
+
+  const filteredData = [...historyData]
+  .filter((item) => {
+    const value = search.toLowerCase();
+
+    return (
+      item.subject.toLowerCase().includes(value) ||
+      item.className.toLowerCase().includes(value) ||
+      item.difficulty.toLowerCase().includes(value) ||
+      item.marks.toString().includes(value)
+    );
+  })
+  .sort((a, b) => {
+    switch (sortBy) {
+      case "marksLow":
+        return a.marks - b.marks;
+
+      case "marksHigh":
+        return b.marks - a.marks;
+
+      case "easy":
+        return a.difficulty.localeCompare(b.difficulty);
+
+      case "hard":
+        return b.difficulty.localeCompare(a.difficulty);
+
+      case "latest":
+        return new Date(b.created_at) - new Date(a.created_at);
+
+      case "oldest":
+        return new Date(a.created_at) - new Date(b.created_at);
+
+      default:
+        return 0;
+    }
+  });
 
   const fetchPapers = async () => {
     try {
@@ -31,6 +69,74 @@ function History() {
         </h1>
       </div>
 
+      <div className="mb-7 flex items-center gap-3">
+
+  {/* Search */}
+
+  <div className="relative flex-1">
+
+    <Search
+      size={18}
+      className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"
+    />
+
+    <input
+      type="text"
+      placeholder="Search by subject, class, marks..."
+      value={search}
+      onChange={(e)=>setSearch(e.target.value)}
+      className="w-full rounded-xl border border-gray-200 bg-white py-3 pl-11 pr-4 shadow-sm outline-none transition focus:border-purple-500 focus:ring-2 focus:ring-purple-100"
+    />
+
+  </div>
+
+  {/* Sort */}
+
+  <div className="relative">
+
+    <select
+      value={sortBy}
+      onChange={(e)=>setSortBy(e.target.value)}
+      className="
+      appearance-none
+      rounded-xl
+      border
+      border-gray-200
+      bg-white
+      py-3
+      pl-11
+      pr-9
+      shadow-sm
+      cursor-pointer
+      hover:border-purple-400
+      focus:border-purple-500
+      focus:ring-2
+      focus:ring-purple-100
+      "
+    >
+
+      <option value="">Sort By</option>
+      <option value="latest">Latest</option>
+      <option value="oldest">Oldest</option>
+      <option value="marksHigh">Highest Marks</option>
+      <option value="marksLow">Lowest Marks</option>
+      <option value="easy">Easy First</option>
+      <option value="hard">Hard First</option>
+
+    </select>
+
+    <ArrowUpDown
+      size={17}
+      className="absolute left-4 top-1/2 -translate-y-1/2 text-purple-600"
+    />
+
+  </div>
+
+</div>
+
+
+
+
       {/* TABLE CARD */}
       <div className="rounded-2xl bg-white p-6 shadow border">
 
@@ -50,7 +156,7 @@ function History() {
 
   <tbody>
 
-    {historyData.map((item) => (
+    {filteredData.map((item) => (
 
       <tr
         key={item._id}
