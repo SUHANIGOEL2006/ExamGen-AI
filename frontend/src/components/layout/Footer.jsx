@@ -1,6 +1,9 @@
+import { Link } from "react-router-dom";
+import { Mail, GraduationCap } from "lucide-react";
+
 function Footer() {
   return (
-    <footer className="bg-slate-900 text-gray-300">
+    <footer className="border-t border-gray-800 bg-[#0f172a] text-gray-300">
 
       <div className="mx-auto max-w-7xl px-6 py-14">
 
@@ -10,18 +13,27 @@ function Footer() {
 
           <div>
 
-            <h2 className="text-2xl font-bold text-white">
-              🎓 ExamGen AI
-            </h2>
+            <div className="mb-4 flex items-center gap-3">
 
-            <p className="mt-4 leading-7 text-gray-400">
-              AI-powered question paper generator built to help students
-              practice smarter, faster, and with confidence.
+              <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-r from-purple-600 to-indigo-600 text-white">
+                <GraduationCap size={22} />
+              </div>
+
+              <h2 className="text-2xl font-bold text-white">
+                ExamGen AI
+              </h2>
+
+            </div>
+
+            <p className="max-w-sm leading-7 text-gray-400">
+              Generate AI-powered question papers instantly for smarter
+              preparation. Customize subject, difficulty level and marks
+              within seconds.
             </p>
 
           </div>
 
-          {/* Links */}
+          {/* Quick Links */}
 
           <div>
 
@@ -29,49 +41,75 @@ function Footer() {
               Quick Links
             </h3>
 
-            <ul className="space-y-3">
+            <div className="flex flex-col gap-3">
 
-              <li className="cursor-pointer transition hover:text-purple-400">
+              <Link
+                to="/"
+                className="transition hover:text-purple-400"
+              >
                 Home
-              </li>
+              </Link>
 
-              <li className="cursor-pointer transition hover:text-purple-400">
+              <a
+                href="#features"
+                className="transition hover:text-purple-400"
+              >
                 Features
-              </li>
+              </a>
 
-              <li className="cursor-pointer transition hover:text-purple-400">
+              <a
+                href="#how-it-works"
+                className="transition hover:text-purple-400"
+              >
                 How It Works
-              </li>
+              </a>
 
-              <li className="cursor-pointer transition hover:text-purple-400">
+              <Link
+                to="/login"
+                className="transition hover:text-purple-400"
+              >
                 Login
-              </li>
+              </Link>
 
-            </ul>
+            </div>
 
           </div>
 
-          {/* Contact */}
+          {/* Connect */}
 
           <div>
 
             <h3 className="mb-5 text-lg font-semibold text-white">
-              Contact
+              Connect
             </h3>
 
-            <div className="space-y-3">
+            <div className="space-y-4">
 
-              <p className="transition hover:text-purple-400">
-                📧 support@examgen.ai
-              </p>
+              <a
+                href="mailto:suhanigoel2006@gmail.com"
+                className="flex items-center gap-3 transition hover:text-purple-400"
+              >
+                <Mail size={18} />
+                suhanigoel2006@gmail.com
+              </a>
 
-              <p className="transition hover:text-purple-400">
-                💻 GitHub
-              </p>
+              <a
+                href="https://github.com/SUHANIGOEL2006"
+                target="_blank"
+                rel="noreferrer"
+                className="block transition hover:text-purple-400"
+              >
+                GitHub →
+              </a>
 
-              <p className="transition hover:text-purple-400">
-                💼 LinkedIn
-              </p>
+              <a
+                href="https://www.linkedin.com/in/suhani-goel-2b1a12278/"
+                target="_blank"
+                rel="noreferrer"
+                className="block transition hover:text-purple-400"
+              >
+                LinkedIn →
+              </a>
 
             </div>
 
@@ -79,13 +117,17 @@ function Footer() {
 
         </div>
 
-        <div className="mt-12 border-t border-slate-700 pt-6 text-center text-sm text-gray-500">
+        {/* Bottom */}
 
-          Built for Students • Powered by AI ❤️
+        <div className="mt-12 flex flex-col items-center justify-between gap-3 border-t border-gray-700 pt-6 text-sm text-gray-500 md:flex-row">
 
-          <br />
+          <p>
+            © {new Date().getFullYear()} ExamGen AI. All rights reserved.
+          </p>
 
-          © {new Date().getFullYear()} ExamGen AI. All rights reserved.
+          <p>
+            Built with <span className="text-red-400">❤</span> using React, FastAPI & MongoDB
+          </p>
 
         </div>
 
