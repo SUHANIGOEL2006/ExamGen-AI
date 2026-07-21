@@ -49,6 +49,21 @@ function History() {
     }
   });
 
+  const getDifficultyStyle = (level) => {
+  switch (level) {
+    case "Easy":
+      return "bg-green-100 text-green-700";
+
+    case "Medium":
+      return "bg-yellow-100 text-yellow-700";
+
+    case "Hard":
+      return "bg-red-100 text-red-700";
+
+    default:
+      return "bg-gray-100 text-gray-600";
+  }
+};
   const fetchPapers = async () => {
     try {
       const response = await api.get("/papers");
@@ -179,12 +194,14 @@ function History() {
         </td>
 
         <td>
-
-          <span className="rounded-full bg-purple-100 px-3 py-1 text-xs font-medium text-purple-700">
-            {item.difficulty}
-          </span>
-
-        </td>
+  <span
+    className={`rounded-full px-3 py-1 text-xs font-medium ${getDifficultyStyle(
+      item.difficulty
+    )}`}
+  >
+    {item.difficulty}
+  </span>
+</td>
 
         <td className="font-medium text-gray-700">
           {item.marks} Marks
@@ -261,9 +278,13 @@ function History() {
           {selectedPaper.marks} Marks
         </span>
 
-        <span className="rounded-full bg-yellow-100 px-3 py-1">
-          {selectedPaper.difficulty}
-        </span>
+        <span
+  className={`rounded-full px-3 py-1 text-sm font-medium ${getDifficultyStyle(
+    selectedPaper.difficulty
+  )}`}
+>
+  {selectedPaper.difficulty}
+</span>
 
       </div>
 

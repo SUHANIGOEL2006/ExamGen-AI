@@ -33,7 +33,7 @@ function RecentPapers({ papers }) {
     <div className="mt-10 rounded-2xl border border-gray-100 bg-white p-6 shadow-sm">
 
       {/* Header */}
-      <div className="mb-6 flex items-center justify-between">
+      <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
 
   <div className="flex items-center gap-3">
 
@@ -62,15 +62,21 @@ function RecentPapers({ papers }) {
     to="/history"
     className="rounded-lg bg-purple-100 px-4 py-2 text-sm font-medium text-purple-700 transition hover:bg-purple-200"
   >
-    View All →
+    <span className="hidden sm:inline">
+View All →
+</span>
+
+<span className="sm:hidden">
+All
+</span>
   </Link>
 
 </div>
 
       {/* Table */}
-      <div className="overflow-x-auto">
+      <div className="overflow-x-auto rounded-xl">
 
-        <table className="w-full text-sm">
+        <table className="min-w-[700px] w-full text-sm">
 
           <thead className="bg-gray-50 text-gray-600">
 
@@ -172,12 +178,12 @@ function RecentPapers({ papers }) {
     {selectedPaper && (
   <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
 
-    <div className="relative max-h-[85vh] w-11/12 max-w-4xl overflow-y-auto rounded-2xl bg-white p-6">
+    <div className="relative max-h-[90vh] w-[95%] max-w-4xl overflow-y-auto rounded-2xl bg-white p-4 sm:p-6">
 
       {/* Sticky Header */}
       <div className="sticky top-0 z-10 -mx-6 -mt-6 mb-6 flex items-center justify-between border-b bg-white px-6 py-4">
 
-        <h2 className="text-2xl font-bold text-purple-700">
+        <h2 className="text-xl font-bold text-purple-700 sm:text-2xl">
           {selectedPaper.subject} Question Paper
         </h2>
 
@@ -207,7 +213,7 @@ function RecentPapers({ papers }) {
 
       </div>
 
-      <pre className="whitespace-pre-wrap rounded-xl bg-gray-100 p-5 leading-8">
+      <pre className="whitespace-pre-wrap rounded-xl bg-gray-100 p-4 text-sm leading-7 sm:p-5 sm:text-base sm:leading-8">
         {selectedPaper.paper}
       </pre>
 

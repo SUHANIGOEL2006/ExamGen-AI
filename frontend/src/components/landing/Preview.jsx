@@ -34,7 +34,7 @@ function Preview() {
 
           </span>
 
-          <h2 className="mt-8 text-5xl font-extrabold leading-tight text-white">
+          <h2 className="mt-8 text-3xl font-extrabold leading-tight text-white sm:text-4xl lg:text-5xl">
 
             Generate Beautiful
             <br />
@@ -42,7 +42,7 @@ function Preview() {
 
           </h2>
 
-          <p className="mx-auto mt-6 max-w-3xl text-lg leading-8 text-purple-100">
+          <p className="mx-auto mt-6 max-w-3xl text-base leading-7 text-purple-100 sm:text-lg">
 
             Generate professional competency-based question papers
             with beautiful formatting and one-click PDF export.
@@ -53,7 +53,7 @@ function Preview() {
 
         {/* Main Grid */}
 
-        <div className="mt-24 grid items-center gap-20 lg:grid-cols-2">
+        <div className="mt-16 grid items-center gap-14 lg:grid-cols-2">
 
           {/* ================= LEFT ================= */}
 
@@ -69,26 +69,29 @@ function Preview() {
               className="
               relative
               aspect-[1/1.414]
-              w-[480px]
-              rotate-2
-              rounded-md
+              w-full
+              max-w-[480px]
+              rotate-0
+              lg:rotate-2
+              rounded-xl
               bg-white
-              p-10
+              p-5
+              sm:p-8
+              lg:p-10
               shadow-[0_30px_60px_rgba(0,0,0,0.25)]
               transition-all
               duration-500
-              hover:rotate-0
               hover:scale-[1.02]
+              lg:hover:rotate-0
               "
             >
-
               {/* Top */}
 
               <div className="flex items-center justify-between">
 
                 <div>
 
-                  <h3 className="text-2xl font-bold">
+                  <h3 className="text-lg font-bold sm:text-xl lg:text-2xl">
 
                     ExamGen AI
 
@@ -117,7 +120,7 @@ function Preview() {
               <div className="text-center">
 
 
-                <h1 className="text-xl font-extrabold uppercase tracking-widest">
+                <h1 className="text-base font-extrabold uppercase tracking-wide sm:text-lg lg:text-xl">
 
                   Central Board of
 
@@ -147,7 +150,7 @@ function Preview() {
 
               {/* Details */}
 
-              <div className="grid grid-cols-2 gap-3 text-sm">
+              <div className="grid grid-cols-2 gap-2 text-xs sm:text-sm">
 
                 <p>
                   <strong>Class :</strong> XII
@@ -206,7 +209,7 @@ function Preview() {
                   Multiple Choice Questions (1 Mark Each)
                 </p>
 
-                <div className="mt-5 space-y-4 text-sm">
+                <div className="mt-5 space-y-3 text-xs sm:text-sm">
 
                   <div className="flex justify-between">
                     <p><strong>Q1.</strong> Define Electric Flux.</p>
@@ -260,7 +263,7 @@ function Preview() {
               Built for Students & Teachers
             </span>
 
-            <h2 className="mt-8 text-5xl font-extrabold leading-tight text-white">
+            <h2 className="mt-8 text-3xl font-extrabold leading-tight text-white sm:text-4xl lg:text-5xl">
               Create Board-Level
               <br />
               Question Papers
@@ -268,7 +271,7 @@ function Preview() {
               in Seconds
             </h2>
 
-            <p className="mt-8 text-lg leading-8 text-purple-100">
+            <p className="mt-8 text-base leading-7 text-purple-100 sm:text-lg">
               ExamGen AI generates professional CBSE question papers with
               beautiful formatting, competency-based questions, proper
               sections, case studies and printable PDF output.
@@ -280,7 +283,7 @@ function Preview() {
 
                 <div
                   key={feature}
-                  className="flex items-center gap-5 rounded-2xl border border-white/10 bg-white/10 p-5 backdrop-blur-md transition-all duration-300 hover:translate-x-2 hover:bg-white/20"
+                  className="flex items-center gap-4 rounded-2xl border border-white/10 bg-white/10 p-5 backdrop-blur-md transition-all duration-300 hover:translate-x-2 hover:bg-white/20"
                 >
 
                   <div className="flex h-12 w-12 items-center justify-center rounded-full bg-white text-purple-700">
@@ -289,7 +292,7 @@ function Preview() {
 
                   </div>
 
-                  <p className="text-lg font-medium text-white">
+                  <p className="text-base font-medium text-white sm:text-lg">
                     {feature}
                   </p>
 
@@ -299,17 +302,17 @@ function Preview() {
 
             </div>
 
-            <div className="mt-12 flex gap-5">
+            <div className="mt-12 flex flex-col gap-4 sm:flex-row">
 
               <button onClick={() => token ? navigate("/dashboard") : navigate("/signup")}
-              className="rounded-xl bg-white px-8 py-4 font-semibold text-purple-700 transition hover:scale-105">
+              className="w-full rounded-xl bg-white px-8 py-4 font-semibold text-purple-700 transition hover:scale-105">
 
                 Generate Paper
 
               </button>
 
               <button onClick={() => { document.getElementById("how-it-works")?.scrollIntoView({ behavior: "smooth" });}}
-              className="rounded-xl border border-white/20 px-8 py-4 font-semibold text-white backdrop-blur-md transition hover:bg-white/10">
+              className="w-full rounded-xl border border-white/20 px-8 py-4 font-semibold text-white backdrop-blur-md transition hover:bg-white/10">
 
                 Learn More
 
