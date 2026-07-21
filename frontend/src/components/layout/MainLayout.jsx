@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Sidebar from "../dashboard/Sidebar";
 import { Menu } from "lucide-react";
+import logo from "../../assets/logo_examgen AI.png";
 
 function MainLayout({ children }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -32,9 +33,19 @@ function MainLayout({ children }) {
             <Menu size={28} />
           </button>
 
-          <h1 className="text-lg font-bold text-purple-700">
-            ExamGen AI
-          </h1>
+          <div className="flex items-center gap-2">
+
+  <img
+    src={logo}
+    alt="ExamGen AI"
+    className="h-15 w-15 rounded-xl"
+  />
+
+  <span className="text-lg font-bold text-purple-700">
+    ExamGen AI
+  </span>
+
+</div>
 
           <div className ="w-7"></div>
 

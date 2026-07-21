@@ -1,6 +1,7 @@
 import { GraduationCap, Menu } from "lucide-react";
 import {useNavigate } from "react-router-dom";
 import { useState } from "react";
+import logo from "../../assets/logo_examgen AI.png";
 
 function Navbar() {
   const navigate = useNavigate();
@@ -26,9 +27,11 @@ function Navbar() {
 
         <div onClick={() => navigate("/")} className="flex cursor-pointer items-center gap-3">
 
-          <div className="flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center rounded-2xl bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-lg">
-            <GraduationCap size={24} />
-          </div>
+           <img
+    src={logo}
+    alt="ExamGen AI"
+    className="h-20 w-20 rounded-xl"
+  />
 
           <div>
             <h1 className="text-xl sm: text-2xl font-bold text-gray-900">

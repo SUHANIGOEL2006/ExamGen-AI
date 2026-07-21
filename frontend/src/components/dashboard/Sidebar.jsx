@@ -7,6 +7,7 @@ import {
   GraduationCap,
   X,
 } from "lucide-react";
+import logo from "../../assets/logo_examgen AI.png";
 import { NavLink, useNavigate } from "react-router-dom";
 
 function Sidebar({ sidebarOpen, setSidebarOpen }) {
@@ -73,9 +74,11 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
       {/* Logo */}
 
       <div className="mb-8 flex items-center gap-3">
-        <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-r from-purple-600 to-indigo-600 text-white">
-          <GraduationCap size={22} />
-        </div>
+        <img
+    src={logo}
+    alt="ExamGen AI"
+    className="h-18 w-18 rounded-2xl shadow-sm"
+  />
 
         <div>
           <h1 className="text-2xl font-bold text-purple-700">
